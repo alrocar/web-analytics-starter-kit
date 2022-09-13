@@ -59,12 +59,12 @@ SQL >
       date,
       session_id,
       uniq(session_id) as visits,
-      countMerge(hits) as pageviews,
-      case when min(first_hit) = max(latest_hit) then 1 else 0 end as is_bounce,
-      max(latest_hit) as latest_hit_aux,
-      min(first_hit) as first_hit_aux
+      count() as pageviews,
+      case when min(timestamp) = max(timestamp) then 1 else 0 end as is_bounce,
+      max(timestamp) as latest_hit_aux,
+      min(timestamp) as first_hit_aux
     from
-      analytics_sessions_mv
+      analytics_hits
     where
       {% if defined(date_from) %}
         date >= {{Date(date_from)}}

@@ -13,10 +13,10 @@ SQL >
     %
     select
       device,
-      uniqMerge(visits) as visits,
-      countMerge(hits) as hits
+      uniq(session_id) as visits,
+      count() as hits
     from
-      analytics_sources_mv
+      analytics_hits
     where
       {% if defined(date_from) %}
         date >= {{Date(date_from, description="Starting day for filtering a date range", required=False)}}

@@ -26,11 +26,11 @@ SQL >
     from
       analytics_hits
     where
-      timestamp >= (now() - interval 30 minute)
+      t >= (now() - interval 30 minute)
     group by
-      toStartOfMinute(timestamp)
-    order by 
-      toStartOfMinute(timestamp)
+      t
+    order by
+      t
 
 NODE endpoint
 DESCRIPTION >
